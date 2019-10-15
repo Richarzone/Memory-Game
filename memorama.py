@@ -82,6 +82,7 @@ def listas(tabStar, tabNum):
 
 counter = 0
 
+#Turno del jugador 1
 def Turn1():
   global C1, R1, C12, R12, c1num, c12num
   print("Turno del jugador 1")
@@ -112,6 +113,7 @@ def Turn1():
 
   CurrentTable(starList, numList, tabNum, tabStar, R1, c1num, R12, c12num, currentTab, DFStar, counter)
 
+#Turno del jugador 2
 def Turn2():
   global C2, R2, C22, R22, c2num, c22num, numList, starList
   print()
@@ -142,12 +144,13 @@ def Turn2():
 
   CurrentTable2(starList, numList, tabNum, tabStar, R2, c2num, R22, c22num, currentTabcomb1)
 
-
+#Voltea las cartas para el jugador 1
 def CurrentTable(starList, numList, tabNum, tabStar, R1, c1num, R12, c12num, currentTab, DFStar, counter):
   global currentTabcomb1 
 
   print("counter: ", counter)
-
+  
+  #Voltea las cartas cambiando el contenido de la lista de estrellas("X") por los numeros que tengan igual a la posicion
   starList[R1][c1num] = str(numList[R1][c1num])
   starList[R12][c12num] = str(numList[R12][c12num])
 
@@ -157,6 +160,9 @@ def CurrentTable(starList, numList, tabNum, tabStar, R1, c1num, R12, c12num, cur
 
   print(currentTabcomb1)
   input("Press Enter to continue...")
+  #EL PROBLEMA ESTA AQUI: Esta condicional hace que si se encuetra un par se guarde la nueva lista de estrellas("X") con los nuemeros ya revelados.
+  #Si no hay par tiene que regresar al tablero anterior. El problema es que despues del primer ciclo de turnos (despues del primer turno del jugados 2) si no encuentra un par vuelve a tapar todo
+  #Creo que si hacemos un contador se puede solucionar esto. (Lo intente pero me dio sueño)
   if str(numList[R1][c1num]) == str(numList[R12][c12num]):
     currentTab = currentTabcomb1
   elif counter == 0:
@@ -171,7 +177,7 @@ def CurrentTable(starList, numList, tabNum, tabStar, R1, c1num, R12, c12num, cur
   print("counter: ", counter)
   Turn2()
 
-
+#Voltea las cartas para el jugador 2
 def CurrentTable2(starList, numList, tabNum, tabStar, R2, c2num, R22, c22num, currentTabcomb1):
 
   starList[R2][c2num] = str(numList[R2][c2num])
