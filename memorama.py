@@ -1,3 +1,5 @@
+#BUG PRESENTE NECESITAMOS CHECAR LAS ULTIMAS DOS FUNCIONES DEL PROYECTO
+
 import random
 import pandas as pd
 import numpy as np
