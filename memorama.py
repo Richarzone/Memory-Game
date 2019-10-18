@@ -1,207 +1,141 @@
-#BUG PRESENTE NECESITAMOS CHECAR LAS ULTIMAS DOS FUNCIONES DEL PROYECTO
+from random import shuffle
 
-import random
-import pandas as pd
-import numpy as np
+def crearListanum():
+    lista = ['1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8','9','9','10','10','11','11','12','12','13','13','14','14','15','15','16','16','17','17','18','18']
+    shuffle(lista)
+    return lista
 
-#Creates table with numbers
-def Tablero():
-  global DFNum, tabNum
-  
-  tablero = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18]
-  r1 = []
-  r2 = []
-  r3 = []
-  r4 = []
-  r5 = []
-  r6 = []
+def crearTab():
+    temp = []
+    tablero = []
+    for x in numList:
+        if len(temp) < 5:
+            temp.append(x)
+        else:
+            temp.append(x)
+            tablero.append(temp)
+            temp = []
+    return tablero
 
-  #Creates rows of the table with numbers
-  random.shuffle(tablero)
-  for i in range(0,6):
-    r1.append(tablero[i])
-  for i in range(6,12):
-    r2.append(tablero[i])
-  for i in range(12,18):
-    r3.append(tablero[i])
-  for i in range(18,24):
-    r4.append(tablero[i])
-  for i in range(24,30):
-    r5.append(tablero[i])
-  for i in range(30,36):
-    r6.append(tablero[i])
+def crearTabOculto():
+  #Crea el tablero con las cartas boca abajo
+    temp = []
+    xlist = []
+    for x in range(0,36):
+        if len(temp) < 5:
+            temp.append(" X")
+        else:
+            temp.append(" X")
+            xlist.append(temp)
+            temp = []
+    return xlist
+
+def turnos(turno):
+  #Marca el turno de los jugadores sacando el residuo del cuntador turno. Si es non es turno del jugador 1 si es par es el turno del jugador 2
+    if (turno % 2) == 1:
+        playerTurn = True
+    else:
+        playerTurn = False
+    return playerTurn
+
+def desplegarOculto(xTab):
+    for x in range(0,6):
+        for y in range(0,6):
+            print(f'{xTab[x][y]:>5}', end = "")
+        print("")
+
+def desplegarNum(numTab):
+    for x in range(0,6):
+        for y in range(0,6):
+            print(f'{numTab[x][y]:>5}', end = "")
+        print("")
     
-  DFNum = pd.DataFrame([r1, r2, r3, r4, r5, r6], columns=['A', 'B', 'C', 'D', 'E', 'F'], index=['1|','2|','3|','4|','5|','6|'])
-  tabNum = DFNum.to_numpy()
-  print(DFNum)
-  print()
+def validar(R1,C1,R2,C2,numTab):
+    if R1 == R2 and C1 == C2:
+        valido = False
+    elif ((numTab[R1][C1] in correctos) == True) or ((numTab[R2][C2] in correctos) == True):
+        valido = False
+    else:
+        valido = True
+    return valido
 
-def TableroOculto():
-  global DFStar, tabStar, s1, s2, s3, s4, s5, s6
+numList = crearListanum()
+numTab = crearTab()
+xTab = crearTabOculto()
+turno = 1
+player1Points = 0
+player2Points = 0
+correctos = []
 
-  stars = []
-  star = " X"
-  s1 = []
-  s2 = []
-  s3 = []
-  s4 = []
-  s5 = []
-  s6 = []
-  for i in range(0,6):
-    for j in range(0,6):
-      stars.append(star)
-  #Creates rows of the table with numbers
-  for i in range(0,6):
-    s1.append(stars[i])
-  for i in range(6,12):
-    s2.append(stars[i])
-  for i in range(12,18):
-    s3.append(stars[i])
-  for i in range(18,24):
-    s4.append(stars[i])
-  for i in range(24,30):
-    s5.append(stars[i])
-  for i in range(30,36):
-    s6.append(stars[i])
-  
-  DFStar = pd.DataFrame([s1, s2, s3, s4, s5, s6], columns=['A', 'B', 'C', 'D', 'E', 'F'], index=['1|','2|','3|','4|','5|','6|'])
-  tabStar = DFStar.to_numpy()
-  print(DFStar)
-  print()
-
-#Sets the board
-def startingTab(DFStar):
-  global currentTab
-  currentTab = DFStar
-#Game starts
-def listas(tabStar, tabNum):
-  global numList, starList
-
-  numList = tabNum.tolist()
-  starList = tabStar.tolist()
-
-counter = 0
-
-#Turno del jugador 1
-def Turn1():
-  global C1, R1, C12, R12, c1num, c12num
-  print("Turno del jugador 1")
-  print("Selecciona las coordenadas de las cartas que quieras destapar: ")
-  print("Carta 1")
-  C1 = input("Columna: ")
-  R1 = int(input("Linea: "))
-  print("Carta 2")
-  C12 = input("Columna: ")
-  R12 = int(input("Linea: "))
-  
-
-  #First coordenate
-  c1low = C1.lower()
-  for i in c1low:
-    c1num = ord(i) - 96
-  
-  c1num = c1num - 1
-  R1 = R1 - 1 
-
-  #Second coordenate
-  c12low = C12.lower()
-  for i in c12low:
-    c12num = ord(i) - 96
-
-  c12num = c12num - 1
-  R12 = R12 - 1 
-
-  CurrentTable(starList, numList, tabNum, tabStar, R1, c1num, R12, c12num, currentTab, DFStar, counter)
-
-#Turno del jugador 2
-def Turn2():
-  global C2, R2, C22, R22, c2num, c22num, numList, starList
-  print()
-  print("Turno del jugador 2")
-  print("Selecciona las coordenadas de las cartas que quieras destapar: ")
-  print("Carta 1")
-  C2 = input("Columna: ")
-  R2 = int(input("Linea: "))
-  print("Carta 2")
-  C22 = input("Columna: ")
-  R22 = int(input("Linea: "))
-
-  #First coordenate
-  c2low = C2.lower()
-  for i in c2low:
-    c2num = ord(i) - 96
-  
-  c2num = c2num - 1
-  R2 = R2 - 1 
-
-  #Second coordenate
-  c22low = C22.lower()
-  for i in c22low:
-    c22num = ord(i) - 96
-
-  c22num = c22num - 1
-  R22 = R22 - 1 
-
-  CurrentTable2(starList, numList, tabNum, tabStar, R2, c2num, R22, c22num, currentTabcomb1)
-
-#Voltea las cartas para el jugador 1
-def CurrentTable(starList, numList, tabNum, tabStar, R1, c1num, R12, c12num, currentTab, DFStar, counter):
-  global currentTabcomb1 
-
-  print("counter: ", counter)
-  
-  #Voltea las cartas cambiando el contenido de la lista de estrellas("X") por los numeros que tengan igual a la posicion
-  starList[R1][c1num] = str(numList[R1][c1num])
-  starList[R12][c12num] = str(numList[R12][c12num])
-
-  currentTabcomb1 = pd.DataFrame([starList[0],starList[1],starList[2],starList[3],starList[4],starList[5]], columns=['A', 'B', 'C', 'D', 'E', 'F'], index=['1|','2|','3|','4|','5|','6|'])
-
-  currentTab = currentTabcomb1
-
-  print(currentTabcomb1)
-  input("Press Enter to continue...")
-  #EL PROBLEMA ESTA AQUI: Esta condicional hace que si se encuetra un par se guarde la nueva lista de estrellas("X") con los nuemeros ya revelados.
-  #Si no hay par tiene que regresar al tablero anterior. El problema es que despues del primer ciclo de turnos (despues del primer turno del jugados 2) si no encuentra un par vuelve a tapar todo
-  #Creo que si hacemos un contador se puede solucionar esto. (Lo intente pero me dio sueño)
-  if str(numList[R1][c1num]) == str(numList[R12][c12num]):
-    currentTab = currentTabcomb1
-  elif counter == 0:
-    currentTab = currentTab
-    starList[R1][c1num] = ' X'
-    starList[R12][c12num] = ' X'
-    print(DFStar)
-  elif counter > 0:
-      print(currentTab)
-  counter += 1
-  print()
-  print("counter: ", counter)
-  Turn2()
-
-#Voltea las cartas para el jugador 2
-def CurrentTable2(starList, numList, tabNum, tabStar, R2, c2num, R22, c22num, currentTabcomb1):
-
-  starList[R2][c2num] = str(numList[R2][c2num])
-  starList[R22][c22num] = str(numList[R22][c22num])
-
-  currentTab2 = pd.DataFrame([starList[0],starList[1],starList[2],starList[3],starList[4],starList[5]], columns=['A', 'B', 'C', 'D', 'E', 'F'], index=['1|','2|','3|','4|','5|','6|'])
-
-  print(currentTab2)
-  input("Press Enter to continue...")
-  if str(numList[R2][c2num]) == str(numList[R22][c22num]):
-    currentTabcomb1 = currentTab2
+while (len(correctos)) != 36:
+  while True:
+      print("Turno ", turno)
+      playerTurn = turnos(turno)
+      if playerTurn == True:
+          print("Es el turno del jugador 1")
+          print("    1    2    3    4    5    6    ")
+          print("==================================")
+      else:
+          print("Es el turno del jugador 2")
+          print("    1    2    3    4    5    6    ")
+          print("==================================")
+      while True:
+          desplegarOculto(xTab)
+          #Las siguientes cuatro lineas de codigo se utilizan para hacer debug. Comentar para quitarlas
+          print()
+          print("    1    2    3    4    5    6    ")
+          print("==================================")
+          desplegarNum(numTab)
+          #Debuging ^
+          print("Selecciona las coordenadas de las cartas que quieras destapar: ")
+          elegR1 = int(input("Primera fila: "))
+          elegC1 = int(input("Primera columna: "))
+          elegR2 = int(input("Segunda fila: "))
+          elegC2 = int(input("Segunda columna: "))
+          
+          R1 = elegR1 - 1
+          C1 = elegC1 - 1
+          R2 = elegR2 - 1
+          C2 = elegC2 - 1
+          
+          valido = validar(R1,C1,R2,C2,numTab)
+          if valido == False:
+              print("Input Incorrectos")
+          else:
+              if numTab[R1][C1] == numTab[R2][C2]:
+                  correctos.append(numTab[R1][C1])
+                  correctos.append(numTab[R2][C2])
+                  xTab[R1][C1] = numTab[R1][C1]
+                  xTab[R2][C2] = numTab[R2][C2]
+                  print("    1    2    3    4    5    6    ")
+                  print("==================================")
+                  desplegarOculto(xTab)
+                  if playerTurn == True:
+                      player1Points = player1Points + 1
+                      print("Jugador 1 = ", player1Points, "Jugador 2 = ", player2Points)
+                  else:
+                      player2Points = player2Points + 1
+                      print("Jugador 1 = ", player1Points, "Jugador 2 = ", player2Points)
+              else:
+                  temp1 = xTab[R1][C1]
+                  temp2 = xTab[R2][C2]
+                  xTab[R1][C1] = numTab[R1][C1]
+                  xTab[R2][C2] = numTab[R2][C2]
+                  print("    1    2    3    4    5    6    ")
+                  print("==================================")
+                  desplegarOculto(xTab)
+                  xTab[R1][C1] = temp1
+                  xTab[R2][C2] = temp2
+                  print("No son iguales")
+              turno = turno + 1
+              break
+      seguir = input("Quieres seguir jugando?: ")
+      if seguir == "no":
+        print("Volvamos a jugar pronto")
+        break
+  if player1 > player2:
+      print("FIN DEL JUEGO, VICTORIA: JUGADOR 1")
+  elif player1 < player2:
+      print("FIN DEL JUEGO, VICTORIA: JUGADOR 2")
   else:
-    currentTabcomb1 = currentTabcomb1
-    starList[R2][c2num] = ' X'
-    starList[R22][c22num] = ' X'
-    print(currentTabcomb1)
-    currentTabcomb1 = currentTab2
-  
-  print()
-  Turn1()
-
-#First calls
-Tablero()
-TableroOculto()
-startingTab(DFStar)
-listas(tabStar, tabNum)
-Turn1()
+      print("FIN DEL JUEGO EMPATE")
