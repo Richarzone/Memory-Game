@@ -18,7 +18,7 @@ def crearTab():
     return tablero
 
 def crearTabOculto():
-  #Crea el tablero con las cartas boca abajo
+    #Crea el tablero con las cartas boca abajo
     temp = []
     xlist = []
     for x in range(0,36):
@@ -67,8 +67,7 @@ player1Points = 0
 player2Points = 0
 correctos = []
 
-while (len(correctos)) != 36:
-  while True:
+while (len(correctos)) != 36 and True:
       print("Turno ", turno)
       playerTurn = turnos(turno)
       if playerTurn == True:
@@ -100,7 +99,7 @@ while (len(correctos)) != 36:
           
           valido = validar(R1,C1,R2,C2,numTab)
           if valido == False:
-              print("Input Incorrectos")
+              print("Input Incorrecto. Vuleve a seleccionar tus cartas")
           else:
               if numTab[R1][C1] == numTab[R2][C2]:
                   correctos.append(numTab[R1][C1])
@@ -112,10 +111,20 @@ while (len(correctos)) != 36:
                   desplegarOculto(xTab)
                   if playerTurn == True:
                       player1Points = player1Points + 1
-                      print("Jugador 1 = ", player1Points, "Jugador 2 = ", player2Points)
+                      print("     Jugador 1 = ", player1Points, "                 //     ", "            Jugador 2 = ", player2Points)
+                      print("           /\                                                 /\ ")
+                      print(" _         )( ______________________   ______________________ )(         _")
+                      print("(_)///////(**)______________________> <______________________(**)///////(_)")
+                      print("           )(                                                 )(")
+                      print("           \/                                                 \/")
                   else:
                       player2Points = player2Points + 1
-                      print("Jugador 1 = ", player1Points, "Jugador 2 = ", player2Points)
+                      print("     Jugador 1 = ", player1Points, "                 //     ", "            Jugador 2 = ", player2Points)
+                      print("           /\                                                 /\ ")
+                      print(" _         )( ______________________   ______________________ )(         _")
+                      print("(_)///////(**)______________________> <______________________(**)///////(_)")
+                      print("           )(                                                 )(")
+                      print("           \/                                                 \/")
               else:
                   temp1 = xTab[R1][C1]
                   temp2 = xTab[R2][C2]
@@ -129,13 +138,59 @@ while (len(correctos)) != 36:
                   print("No son iguales")
               turno = turno + 1
               break
-      seguir = input("Quieres seguir jugando?: ")
+      seguir = input("Quieres seguir jugando?(Presiona ENTER para continuar // Escribe 'no' para salir): ")
       if seguir == "no":
+        if player1Points > player2Points:
+            print("FIN DEL JUEGO, VICTORIA: JUGADOR 1")
+            print()
+            print("     Jugador 1 = ", player1Points, "                 //     ", "            Jugador 2 = ", player2Points)
+            print("           /\                                                  /\ ")
+            print(" _         )( ______________________     ____¬__   _____=____¬ )(         _")
+            print("(_)///////(**)______________________>   /#___~~/  /__¬___#__~~(**)///////(_)")
+            print("           )(                                                  )(")
+            print("           \/                                                  \/")
+        elif player1Points < player2Points:
+            print("FIN DEL JUEGO, VICTORIA: JUGADOR 2")
+            print()
+            print("     Jugador 1 = ", player1Points, "                 //     ", "            Jugador 2 = ", player2Points)
+            print("           /\                                                  /\ ")
+            print(" _         )( _¬______=_____   _¬___    ______________________ )(         _")
+            print("(_)///////(**)~~__#____¬___/  /~~__#\  <______________________(**)///////(_)")
+            print("           )(                                                  )(")
+            print("           \/                                                  \/")
+        else:
+            print("FIN DEL JUEGO EMPATE")
+            print(",d88b.d88b,")
+            print("888[TIE]888")
+            print("`Y8888888Y'")
+            print("  `Y888Y'  ")
+            print("    `Y'    ")
+        
         print("Volvamos a jugar pronto")
-        break
-  if player1 > player2:
+        exit()
+ 
+if player1Points > player2Points:
       print("FIN DEL JUEGO, VICTORIA: JUGADOR 1")
-  elif player1 < player2:
+      print("     Jugador 1 = ", player1Points, "                 //     ", "            Jugador 2 = ", player2Points)
+      print("           /\                                                  /\ ")
+      print(" _         )( ______________________     ____¬__   _____=____¬ )(         _")
+      print("(_)///////(**)______________________>   /#___~~/  /__¬___#__~~(**)///////(_)")
+      print("           )(                                                  )(")
+      print("           \/                                                  \/")
+elif player1Points < player2Points:
       print("FIN DEL JUEGO, VICTORIA: JUGADOR 2")
-  else:
+      print("     Jugador 1 = ", player1Points, "                 //     ", "            Jugador 2 = ", player2Points)
+      print("           /\                                                  /\ ")
+      print(" _         )( _¬______=_____   _¬___    ______________________ )(         _")
+      print("(_)///////(**)~~__#____¬___/  /~~__#\  <______________________(**)///////(_)")
+      print("           )(                                                  )(")
+      print("           \/                                                  \/")
+else:
       print("FIN DEL JUEGO EMPATE")
+      print(",d88b.d88b,")
+      print("888[TIE]888")
+      print("`Y8888888Y'")
+      print("  `Y888Y'  ")
+      print("    `Y'    ")
+
+print("Volvamos a jugar pronto")
