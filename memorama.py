@@ -1,4 +1,5 @@
 from random import shuffle
+MATRIXLEN = 5 # 0..5 = 6
 def crearListanum():
     lista = []
     for i in range(18):
@@ -55,14 +56,16 @@ def desplegarNum(numTab):
 
 def inputval(prompt): 
     correct = False
+    coord = ""
     while not correct:
         try:
-            string = int(input(prompt))
+            coord = int(input(prompt))
+            if (coord - 1) > 5:
+                 raise Exception("Entrada excede los limites del tablero (6)")
             correct = True
         except:
             print("Entrada invalida, prueba otra vez")
-            string = input(prompt)
-    return string
+    return coord
 
 def validar(R1,C1,R2,C2,numTab):
     if R1 == R2 and C1 == C2:
@@ -101,10 +104,10 @@ while (len(correctos)) != 36 and True:
           #desplegarNum(numTab)
           #Debuging ^
           print("Selecciona las coordenadas de las cartas que quieras destapar: ")
-          elegR1 = int(inputval("Primera fila: "))
-          elegC1 = int(inputval("Primera columna: "))
-          elegR2 = int(inputval("Segunda fila: "))
-          elegC2 = int(inputval("Segunda columna: "))
+          elegR1 = inputval("Primera fila: ")
+          elegC1 = inputval("Primera columna: ")
+          elegR2 = inputval("Segunda fila: ")
+          elegC2 = inputval("Segunda columna: ")
           
           R1 = elegR1 - 1
           C1 = elegC1 - 1
