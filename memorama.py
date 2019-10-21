@@ -1,14 +1,4 @@
 from random import shuffle
-def betterinput (string):
-    condition = False
-    while condition:
-        try:
-            int(string)
-            condition = True
-            return string
-        except:
-            print("Por favor ingrese un numero valido")
-    return string
 def crearListanum():
     lista = []
     for i in range(18):
@@ -62,7 +52,18 @@ def desplegarNum(numTab):
         for y in range(0,6):
             print(f'{numTab[x][y]:>5}', end = "")
         print("")
+def inputval(prompt):
     
+    correct = False
+    while not correct:
+        try:
+            int(string)
+            correct = True
+        except:
+            print("Entrada invalida, prueba otra vez")
+            string = input(prompt)
+    return string
+
 def validar(R1,C1,R2,C2,numTab):
     if R1 == R2 and C1 == C2:
         valido = False
@@ -100,10 +101,10 @@ while (len(correctos)) != 36 and True:
           desplegarNum(numTab)
           #Debuging ^
           print("Selecciona las coordenadas de las cartas que quieras destapar: ")
-          elegR1 = int(betterinput("Primera fila: "))
-          elegC1 = int(betterinput("Primera columna: "))
-          elegR2 = int(betterinput("Segunda fila: "))
-          elegC2 = int(betterinput("Segunda columna: "))
+          elegR1 = int(inputval("Primera fila: "))
+          elegC1 = int(inputval("Primera columna: "))
+          elegR2 = int(inputval("Segunda fila: "))
+          elegC2 = int(inputval("Segunda columna: "))
           
           R1 = elegR1 - 1
           C1 = elegC1 - 1
