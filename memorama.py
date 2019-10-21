@@ -1,4 +1,5 @@
 from random import shuffle
+from os import system as sys
 MATRIXLEN = 5 # 0..5 = 6
 def crearListanum():
     lista = []
@@ -156,6 +157,7 @@ while (len(correctos)) != 36 and True:
               turno = turno + 1
               break
       seguir = input("Quieres seguir jugando?(Presiona ENTER para continuar // Escribe 'no' para salir): ")
+      sys("cls")
       if seguir == "no":
         if player1Points > player2Points:
             print("FIN DEL JUEGO, VICTORIA: JUGADOR 1")
