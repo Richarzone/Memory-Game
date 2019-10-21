@@ -52,12 +52,12 @@ def desplegarNum(numTab):
         for y in range(0,6):
             print(f'{numTab[x][y]:>5}', end = "")
         print("")
-def inputval(prompt):
-    
+
+def inputval(prompt): 
     correct = False
     while not correct:
         try:
-            int(string)
+            string = int(input(prompt))
             correct = True
         except:
             print("Entrada invalida, prueba otra vez")
@@ -95,10 +95,10 @@ while (len(correctos)) != 36 and True:
       while True:
           desplegarOculto(xTab)
           #Las siguientes cuatro lineas de codigo se utilizan para hacer debug. Comentar para quitarlas
-          print()
-          print("    1    2    3    4    5    6    ")
-          print("==================================")
-          desplegarNum(numTab)
+          #print()
+          #print("    1    2    3    4    5    6    ")
+          #print("==================================")
+          #desplegarNum(numTab)
           #Debuging ^
           print("Selecciona las coordenadas de las cartas que quieras destapar: ")
           elegR1 = int(inputval("Primera fila: "))
@@ -173,7 +173,7 @@ while (len(correctos)) != 36 and True:
             print("           )(                                                  )(")
             print("           \/                                                  \/")
         else:
-            print("FIN DEL JUEGO EMPATE")
+            print("FIN DEL JUEGO, EMPATE")
             print(",d88b.d88b,")
             print("888[TIE]888")
             print("`Y8888888Y'")
@@ -200,7 +200,7 @@ elif player1Points < player2Points:
       print("           )(                                                  )(")
       print("           \/                                                  \/")
 else:
-      print("FIN DEL JUEGO EMPATE")
+      print("FIN DEL JUEGO, EMPATE")
       print(",d88b.d88b,")
       print("888[TIE]888")
       print("`Y8888888Y'")
