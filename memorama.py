@@ -5,10 +5,16 @@ def betterinput (string):
         try:
             int(string)
             condition = True
+            return string
         except:
             print("Por favor ingrese un numero valido")
+    return string
 def crearListanum():
-    lista = ['1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8','9','9','10','10','11','11','12','12','13','13','14','14','15','15','16','16','17','17','18','18']
+    lista = []
+    for i in range(18):
+        n = i + 1
+        for _ in range(2):
+            lista.append(n)
     shuffle(lista)
     return lista
 
@@ -94,10 +100,10 @@ while (len(correctos)) != 36 and True:
           desplegarNum(numTab)
           #Debuging ^
           print("Selecciona las coordenadas de las cartas que quieras destapar: ")
-          elegR1 = int(input("Primera fila: "))
-          elegC1 = int(input("Primera columna: "))
-          elegR2 = int(input("Segunda fila: "))
-          elegC2 = int(input("Segunda columna: "))
+          elegR1 = int(betterinput("Primera fila: "))
+          elegC1 = int(betterinput("Primera columna: "))
+          elegR2 = int(betterinput("Segunda fila: "))
+          elegC2 = int(betterinput("Segunda columna: "))
           
           R1 = elegR1 - 1
           C1 = elegC1 - 1
